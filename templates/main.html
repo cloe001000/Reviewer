@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block header %}
+
+{% endblock header %}
+
+{% block content %}
+<!-- for 문 안에서 -> movie_data[0] = (평점,영화) , movie_data[1] = 그 영화에 대한 리뷰DATA, movie_data[1][0] = 상위3개리뷰 쿼리셋 , movie_data[1][1] = 하위3개리뷰 쿼리셋 -->
+<h1>영화</h1>
+{% for data in movie_data %}
+    <h2>재목: {{data.0.1.title}}</h2>
+    <h2>장르: {{data.0.1.genre}}</h2>
+    <h2>개봉년도: {{data.0.1.year}}</h2>
+    <h2>감독: {{data.0.1.director}}</h2>
+    <h2>평균 평점:{{ data.0.0 }}</h2>
+    <h3>긍정적인 리뷰 3개 (내림차순 정렬)</h3>
+    {% for positive_review in data.1.0 %}
+        <div>작성자 : {{positive_review.created_by}}</div>
+        <div>평점 : {{positive_review.rating}}</div>
+        <p>내용 : {{positive_review.text}}</p>
+    {% endfor %}
+    <h3>부정적인 리뷰 3개 (오름차순 정렬)</h3>
+    {% for negative_review in data.1.1 %}
+        <div>작성자 : {{negative_review.created_by}}</div>
+        <div>평점 : {{negative_review.rating}}</div>
+        <p>내용 : {{negative_review.text}}</p>
+    {% endfor %}
+{% endfor %}
+
+<h1>책</h1>
+{% for data in book_data %}
+    <h2>재목:{{data.0.1.title}}</h2>
+    <h2>장르:{{data.0.1.genre}}</h2>
+    <h2>작가:{{data.0.1.writer}}</h2>
+    <h2>평균 평점:{{ data.0.0 }}</h2>
+    <h3>긍정적인 리뷰 3개 (내림차순 정렬)</h3>
+    {% for positive_review in data.1.0 %}
+        <div>작성자 : {{positive_review.created_by}}</div>
+        <div>평점 : {{positive_review.rating}}</div>
+        <p>내용 : {{positive_review.text}}</p>
+    {% endfor %}
+    <h3>부정적인 리뷰 3개 (오름차순 정렬)</h3>
+    {% for negative_review in data.1.1 %}
+        <div>작성자 : {{negative_review.created_by}}</div>
+        <div>평점 : {{negative_review.rating}}</div>
+        <p>내용 : {{negative_review.text}}</p>
+    {% endfor %}
+{% endfor %}
+
+{% endblock content %}
