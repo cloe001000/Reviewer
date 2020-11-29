@@ -10,6 +10,7 @@ from core.models import TimeStampedModel
 
 class Book(TimeStampedModel):
     title = models.CharField(max_length=50)
+    plot = models.TextField(null=True)
     year = models.IntegerField(
         null=True,
         validators=[

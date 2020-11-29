@@ -68,4 +68,6 @@ def movie_create(request):
     """
     create movie page definition
     """
-    return render(request, "movie/create_page.html", {})
+    content = request.POST
+    print(content)
+    return render(request, "movies/create_page.html", {})

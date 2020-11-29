@@ -8,6 +8,7 @@ from core.models import TimeStampedModel
 
 class Movie(TimeStampedModel):
     title = models.CharField(max_length=30)
+    plot = models.TextField(null=True)
     genre = models.ForeignKey(
         "categories.MovieCategory",
         on_delete=models.CASCADE,

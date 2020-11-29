@@ -8,6 +8,7 @@
 
 {% block content %}
 <div> 타이틀: {{movie.title}} </div>
+<div> 줄거리: {{movie.plot}}</div>
 <div> 장르: {{ movie.genre }} </div>
 <div> 년도: {{ movie.year }} </div>
 {% for actor in movie.actor.all %}

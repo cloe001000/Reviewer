@@ -7,7 +7,7 @@
 
 
 {% block content %}
-
+<a href=" {% url 'movies:create' %} ">영화 등록하기</a>
 
 {% for movie,reviews in movie_data %}
 <h1>영화 제목:{{movie.1}} , 총평:{{movie.0}}</h1>

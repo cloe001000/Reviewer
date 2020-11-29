@@ -8,6 +8,16 @@
 
 {% block content %}
 
-
+<form method="POST">
+    {% csrf_token %}
+    <input name='title' type=" text">
+    <input name='discribri' type="text">
+    <button>제출</button>
+    <label for="genre">
+        <select name="genre" id="genre">
+            <option value="thriller">Thriller</option>
+        </select>
+    </label>
+</form>
 
 {% endblock content %}
