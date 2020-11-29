@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+영화 매인 페이지
+{% endblock title %}
+
+
+{% block content %}
+
+
+{% for movie,reviews in movie_data %}
+<h1>영화 제목:{{movie.1}} , 총평:{{movie.0}}</h1>
+
+    {% for review_set in reviews %}
+        {% for review in review_set %}
+        <div>
+            작성자:{{review.created_by}}
+            평점{{review.rating}}
+            <p>내용:{{review.text}}</p>
+        </div>
+        {% endfor %}
+        <span>------------------------------</span>
+    {% endfor %}
+{% endfor %}
+
+
+{% if page != 1 %}
+<a href="?page={{page|add:'-1'}}">이전</a>
+{% endif %}
+
+{% if page != page_count %}
+<a href="?page={{page|add:'1'}}">다음</a>
+{% endif %}
+
+{% for page in page_range %}
+<a href="?page={{ page }}">{{ page }}</a>
+{% endfor %}
+
+
+{% endblock content %}

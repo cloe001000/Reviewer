@@ -17,9 +17,14 @@ def main_page(request):
         # 최신 10개 항목들을 total_rating으로 정렬
         movies_data.append((movie.total_rating(), movie))
         books_data.append((book.total_rating(), book))
-    sorted_movies_list = sorted(movies_data, key=lambda x: x[0])
+    sorted_movies_list = sorted(
+        movies_data, key=lambda x: x[0] if type(x[0]) == int else 0.0
+    )
     # ,(평점,객체),,, 로 저장된 자료형이지만 sort 함수가 먹혀 든다
-    sorted_books_list = sorted(books_data, key=lambda x: x[0])
+    sorted_books_list = sorted(
+        books_data, key=lambda x: x[0] if type(x[0]) == int else 0.0
+    )
+    # No review str이 정렬계산에 방해되므로 0.0으로 바꿔준다
 
     # ------최신 연도순으로 10개 선별 후 평균평점순으로 정렬 완료-----------
 
@@ -27,13 +32,13 @@ def main_page(request):
     # sorted_movies_list와 대응되는 리뷰리스트이며 각 요소는 [(상위3쿼리셋),(하위3쿼리셋)] 으로 구성되어있다
     book_review_list = []
     for movie in sorted_movies_list:
-        top_3 = movie[1].review_set.field.model.objects.all().order_by("-rating")[:3]
-        bottom_3 = movie[1].review_set.field.model.objects.all().order_by("rating")[:3]
+        top_3 = movie[1].review_set.all().order_by("-rating")[:3]
+        bottom_3 = movie[1].review_set.all().order_by("rating")[:3]
         movie_review_list.append([top_3, bottom_3])
         # top_3,bottom_3 는 둘다 쿼리셋이다
     for book in sorted_books_list:
-        top_3 = book[1].review_set.field.model.objects.all().order_by("-rating")[:3]
-        bottom_3 = book[1].review_set.field.model.objects.all().order_by("rating")[:3]
+        top_3 = book[1].review_set.all().order_by("-rating")[:3]
+        bottom_3 = book[1].review_set.all().order_by("rating")[:3]
         book_review_list.append([top_3, bottom_3])
         # top_3,bottom_3 는 둘다 쿼리셋이다
 
