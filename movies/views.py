@@ -36,5 +36,36 @@ def movie_main(request):
     )
 
 
-def movie_detail(request):
-    return render(request, "movies/detail.html", {})
+def movie_detail(request, pk):
+    page = int(request.GET.get("page", 0) or 0)
+    # 일단은 리뷰 더보기 기능으로 생각
+    model = movie_model.Movie.objects.get(pk=pk)
+    total_rating = model.total_rating()
+    reviews = model.review_set.all()
+    page_size = 30
+    main_page_size = 5
+    page_count = (
+        int((movie_model.Movie.objects.count() - main_page_size) / page_size) + 1
+    )
+    limit = (page * page_size) + main_page_size
+    offset = limit - page_size if limit > main_page_size else 0
+    review_data = reviews.order_by("-rating")[offset:limit]
+    return render(
+        request,
+        "movies/detail.html",
+        {
+            "movie": model,
+            "total_rating": total_rating,
+            "page_count": page_count,
+            "page_range": range(page_count),
+            "review_data": review_data,
+            "page": page,
+        },
+    )
+
+
+def movie_create(request):
+    """
+    create movie page definition
+    """
+    return render(request, "movie/create_page.html", {})

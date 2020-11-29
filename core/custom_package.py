@@ -1,8 +1,9 @@
-def sorted_cut(model, order_by, offset, limit):
+def sorted_cut(queryset, order_by, offset, limit):
     """
     model.objects.all().order_by(f"-{order_by}")[offset:limit]
+    Relation 연결에서느 쓰지마
     """
-    cuted = model.objects.all().order_by(f"-{order_by}")[offset:limit]
+    cuted = queryset.objects.all().order_by(f"-{order_by}")[offset:limit]
     return cuted
 
 

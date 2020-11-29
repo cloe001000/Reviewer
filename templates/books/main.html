@@ -2,16 +2,16 @@
 
 
 {% block title %}
-영화 매인
+책 매인
 {% endblock title %}
 
 
 {% block content %}
 
 
-{% for movie,reviews in movie_data %}
-<h1>영화 제목:{{movie.1}} , 총평:{{movie.0}}</h1>
-<a href="{% url 'movies:detail' pk=movie.1.pk %}">자세히보기</a>
+{% for book,reviews in book_data %}
+<h1>책 제목:{{book.1}} , 총평:{{book.0}}</h1>
+<a href="{% url 'books:detail' pk=book.1.pk %}">자세히보기</a>
 {% for review_set in reviews %}
 {% for review in review_set %}
 <div>

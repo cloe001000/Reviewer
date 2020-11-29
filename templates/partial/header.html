@@ -1,1 +1,6 @@
-<header> {% block header %} {% endblock header %} </header>
+<header>
+    {% block header %} {% endblock header %}
+    <a href="{% url 'core:main' %}">메인</a>
+    <a href="{% url 'books:main' %}">책 메인</a>
+    <a href="{% url 'movies:main' %}">영화 메인</a>
+</header>

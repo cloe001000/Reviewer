@@ -30,12 +30,15 @@ Main page
 {% endfor %}
 {% endfor %}
 
-<h1>책</h1>
+<a href="{% url 'books:main' %}">
+    <h1>책</h1>
+</a>
 {% for data in book_data %}
 <h2>재목:{{data.0.1.title}}</h2>
 <h2>장르:{{data.0.1.genre}}</h2>
 <h2>작가:{{data.0.1.writer}}</h2>
 <h2>평균 평점:{{ data.0.0 }}</h2>
+<a href=" {% url 'books:detail' pk=data.0.1.pk %}">자세히 보기</a>
 <h3>긍정적인 리뷰 3개 (내림차순 정렬)</h3>
 {% for positive_review in data.1.0 %}
 <div>작성자 : {{positive_review.created_by}}</div>

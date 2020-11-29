@@ -2,18 +2,15 @@
 
 
 {% block title %}
-영화 상세
+책 상세
 {% endblock title %}
 
 
 {% block content %}
-<div> 타이틀: {{movie.title}} </div>
-<div> 장르: {{ movie.genre }} </div>
-<div> 년도: {{ movie.year }} </div>
-{% for actor in movie.actor.all %}
-<div>배우들: {{actor}}</div>
-{% endfor %}
-<div> 감독: {{ movie.director }} </div>
+<div> 타이틀: {{book.title}} </div>
+<div> 장르: {{ book.genre }} </div>
+<div> 년도: {{ book.year }} </div>
+<div> 작가: {{ book.writer }} </div>
 <div> 총평: {{ total_rating }} </div>
 
 {% for review in review_data %}
