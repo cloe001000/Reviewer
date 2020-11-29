@@ -16,7 +16,6 @@
 {% endfor %}
 <div> 감독: {{ movie.director }} </div>
 <div> 총평: {{ total_rating }} </div>
-
 {% for review in review_data %}
 <div>리뷰 작성자: {{review.created_by}} </div>
 <div>리뷰 내용: {{review.text}} </div>

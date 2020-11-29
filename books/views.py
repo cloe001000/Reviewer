@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from . import models as book_model
 from core.custom_package import (
     sorted_cut,
@@ -40,21 +40,24 @@ def book_detail(request, pk):
     model = book_model.Book.objects.get(pk=pk)
     total_rating = model.total_rating()
     reviews = model.review_set.all()
-    page_size = 30
+    page_size = 20
     main_page_size = 5
-    page_count = int((book_model.Book.objects.count() - main_page_size) / page_size) + 1
+    page_count = int((book_model.Book.objects.count() - main_page_size) / page_size)
     limit = (page * page_size) + main_page_size
     offset = limit - page_size if limit > main_page_size else 0
     review_data = reviews.order_by("-rating")[offset:limit]
-    return render(
-        request,
-        "books/detail.html",
-        {
-            "book": model,
-            "total_rating": total_rating,
-            "page_count": page_count,
-            "page_range": range(page_count),
-            "review_data": review_data,
-            "page": page,
-        },
-    )
+    if review_data.count() != 0:
+        return render(
+            request,
+            "books/detail.html",
+            {
+                "book": model,
+                "total_rating": total_rating,
+                "page_count": page_count - 1,
+                "page_range": range(page_count),
+                "review_data": review_data,
+                "page": page,
+            },
+        )
+    else:
+        return redirect("/books")
