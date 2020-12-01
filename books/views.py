@@ -46,18 +46,15 @@ def book_detail(request, pk):
     limit = (page * page_size) + main_page_size
     offset = limit - page_size if limit > main_page_size else 0
     review_data = reviews.order_by("-rating")[offset:limit]
-    if review_data.count() != 0:
-        return render(
-            request,
-            "books/detail.html",
-            {
-                "book": model,
-                "total_rating": total_rating,
-                "page_count": page_count - 1,
-                "page_range": range(page_count),
-                "review_data": review_data,
-                "page": page,
-            },
-        )
-    else:
-        return redirect("/books")
+    return render(
+        request,
+        "books/detail.html",
+        {
+            "book": model,
+            "total_rating": total_rating,
+            "page_count": page_count - 1,
+            "page_range": range(page_count),
+            "review_data": review_data,
+            "page": page,
+        },
+    )

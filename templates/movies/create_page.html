@@ -8,16 +8,46 @@
 
 {% block content %}
 
-<form method="POST">
+<form method="POST" action="{% url 'movies:create_progress' %}">
     {% csrf_token %}
-    <input name='title' type=" text">
-    <input name='discribri' type="text">
+    <label for="title">Title</label>
+    <input name='title' id="title" type=" text" placeholder="Title">
+    <label for="plot">Plot</label>
+    <input name='plot' id="plot" type="text" placeholder="Plot">
+    <label for="year">Year</label>
+    <input name="year" id="year" type="number" min="1900" max="2030" placeholder="Year">
+    <label for="actor">Actor</label>
+    <input name="add_actor" type="text" placeholder="Add Actor">
+    <select name="actor" id="actor" multiple>
+        <option value="" selected>Not here</option>
+        {% for actor in actores %}
+        <option value="{{actor.name}}">{{actor.name}}</option>
+        {% endfor %}
+    </select>
+    <label for="director">Director</label>
+    <select name="director" id="director">
+        <option value="" selected>Not here</option>
+        {% for director in directores %}
+        <option value="{{director.name}}">{{director.name}}</option>
+        {% endfor %}
+    </select>
+    <label for="genre">Genre</label>
+    <select name="genre" id="genre">
+        {% for movie_category in movie_categories %}
+        {% if movie_category.genre == "other" %}
+        <option selected value="{{movie_category.genre}}">{{movie_category.genre}}</option>
+        {% else %}
+        <option value="{{movie_category.genre}}">{{movie_category.genre}}</option>
+        {% endif %}
+        {% endfor %}
+    </select>
     <button>제출</button>
-    <label for="genre">
-        <select name="genre" id="genre">
-            <option value="thriller">Thriller</option>
-        </select>
-    </label>
+
+    {% if error == "True" %}
+    <h5>값에 누락이 있기 때문에 저장되지 않았습니다. 다시 시도해주세요</h5>
+    {% endif %}
+
+
 </form>
 
 {% endblock content %}

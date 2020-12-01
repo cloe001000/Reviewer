@@ -14,6 +14,7 @@ class BookAdmin(admin.ModelAdmin):
         "genre",
         "writer",
         "year",
+        "created",
     )
 
     list_filter = (
